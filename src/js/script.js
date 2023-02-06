@@ -35,26 +35,22 @@
 
   function initActions() {
 
-    const booksImages = listBooksElem.querySelectorAll(select.bookImage);
+    listBooksElem.addEventListener('dblclick', function(e) {
+      e.preventDefault();
 
-    for (let bookImg of booksImages) {
-      
-      bookImg.addEventListener('dblclick', function(e) {
-        e.preventDefault();
-        const bookImgId = bookImg.getAttribute(select.dataId);
+      const bookImg = e.target.offsetParent;
+      const bookImgId = bookImg.getAttribute(select.dataId);
 
-        if(!favoriteBooks.includes(bookImgId)) {
-          favoriteBooks.push(bookImgId);
-          bookImg.classList.add('favorite');
-        } else {
-          const indexOfImg = favoriteBooks.indexOf(bookImg);
-          favoriteBooks.splice(indexOfImg, 1);
-          bookImg.classList.remove('favorite');
-        }
-      })
-    }
-
-
+      if(!favoriteBooks.includes(bookImgId)) {
+        favoriteBooks.push(bookImgId);
+        bookImg.classList.add('favorite');
+      } else {
+        const indexOfImg = favoriteBooks.indexOf(bookImg);
+        favoriteBooks.splice(indexOfImg, 1);
+        bookImg.classList.remove('favorite');
+      }
+    })
+   
   }
 
   render();
