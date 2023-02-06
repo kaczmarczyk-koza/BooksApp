@@ -46,6 +46,10 @@
         if(!favoriteBooks.includes(bookImgId)) {
           favoriteBooks.push(bookImgId);
           bookImg.classList.add('favorite');
+        } else {
+          const indexOfImg = favoriteBooks.indexOf(bookImg);
+          favoriteBooks.splice(indexOfImg, 1);
+          bookImg.classList.remove('favorite');
         }
       })
     }
