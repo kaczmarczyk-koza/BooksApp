@@ -20,28 +20,25 @@
   let filters = [];
   
   function render() {
-
     for (let book of dataSource.books) {
- 
       const generatedHTML = bookTemplete({
         id: book.id,
         name: book.name,
         price: book.price,
         rating: book.rating,
-        image: book.image
+        image: book.image,
+        ratingWidth: book.rating * 10,
+        ratingBgc: determineRatingBgc(book.rating)
 
       });
         
       const bookElem = utils.createDOMFromHTML(generatedHTML);
 
       listBooksElem.appendChild(bookElem);
-
     }
-  
   }
 
   function initActions() {
-
     listBooksElem.addEventListener('dblclick', function(e) {
       e.preventDefault();
 
@@ -74,11 +71,9 @@
       }
       filterBooks();
     });
-   
   }
 
   function filterBooks() {
-    
     for(let book of dataSource.books) {
       let shouldBeHidden = false;
       const image = document.querySelector(select.bookImage + '[data-id="' + book.id + '"]');
@@ -98,8 +93,22 @@
     }
   }
 
+  function determineRatingBgc(rating) {
+    let background = '';
+
+    if (rating < 6) {
+      background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+    } else if (rating > 6 && rating <= 8){
+      background = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+    }else if (rating > 8 && rating <= 9) {
+      background ='linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+    }else if (rating > 9) {
+      background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+    }
+    return background;
+  }
+
   render();
   initActions();
-
 }  
    
